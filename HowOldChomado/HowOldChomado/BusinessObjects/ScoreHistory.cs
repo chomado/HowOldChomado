@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace HowOldChomado.BusinessObjects
 {
     // FaceAPI で取った記録の履歴
-    class ScoreHistory
+    public class ScoreHistory
     {
         public int Id { get; set; }
         public int PlayerId { get; set; }
