@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace HowOldChomado.BusinessObjects
 {
-    // 人のデータ
-    public class Player
+    // 「こいつは誰だ」判定の結果
+    public class FaceDetectionResult
     {
-        public int Id { get; set; }
         public string FaceId { get; set; }
-        public byte[] Picture { get; set; }
-        public string DisplayName { get; set; }
-        public int Age { get; set; }
+        public FaceRectangle Rectangle { get; set; }
     }
 }

@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace HowOldChomado.BusinessObjects
 {
-    // FaceAPI で取った記録の履歴
-    class ScoreHistory
+    // FaceAPI から返ってきたデータのうち、必要なもの
+    public class AgeResult
     {
-        public int Id { get; set; }
-        public int PlayerId { get; set; }
         public int Age { get; set; }
-        public DateTime Date { get; set; }
+        public FaceRectangle Rectangle { get; set; }
     }
 }
