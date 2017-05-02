@@ -6,6 +6,5 @@
              x:Class="HowOldChomado.Views.MainPage"
              Title="MainPage">
   <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-    <Label Text="{Binding Title}" />
   </StackLayout>
 </ContentPage>

@@ -12,15 +12,15 @@ namespace HowOldChomado
 
         protected override void OnInitialized()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
-            NavigationService.NavigateAsync("NavigationPage/MainPage?title=Hello%20from%20Xamarin.Forms");
+            this.NavigationService.NavigateAsync("NavigationPage/MainPage");
         }
 
         protected override void RegisterTypes()
         {
-            Container.RegisterTypeForNavigation<NavigationPage>();
-            Container.RegisterTypeForNavigation<MainPage>();
+            this.Container.RegisterTypeForNavigation<NavigationPage>();
+            this.Container.RegisterTypeForNavigation<MainPage>();
         }
     }
 }

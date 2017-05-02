@@ -6,7 +6,7 @@ namespace HowOldChomado.Views
     {
         public MainPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }
