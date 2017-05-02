@@ -5,6 +5,12 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="HowOldChomado.Views.MainPage"
              Title="MainPage">
-  <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-  </StackLayout>
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS">0,20,0,0</On>
+        </OnPlatform>
+    </ContentPage.Padding>
+    <StackLayout HorizontalOptions="Center"
+                 VerticalOptions="Center">
+    </StackLayout>
 </ContentPage>
