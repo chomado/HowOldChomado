@@ -4,9 +4,11 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="HowOldChomado.Views.MainPage"
-             Title="HowOld @chomado">
+             Title="HowOld@chomado">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Edit" />
+        <ToolbarItem Text="Edit"
+                     Command="{Binding NavigateCommand}"
+                     CommandParameter="RegisterPage" />
         <ToolbarItem Text="Camera" />
     </ContentPage.ToolbarItems>
     <ContentPage.Padding>

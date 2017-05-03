@@ -10,9 +10,13 @@ namespace HowOldChomado.ViewModels
     public class MainPageViewModel : BindableBase, INavigationAware
     {
 
-        public MainPageViewModel()
-        {
+        private INavigationService NavigationService { get; }
+        public DelegateCommand<string> NavigateCommand { get; }
 
+        public MainPageViewModel(INavigationService navigationService)
+        {
+            this.NavigationService = navigationService;
+            this.NavigateCommand = new DelegateCommand<string>(async x => await this.NavigationService.NavigateAsync(x));
         }
 
         public void OnNavigatedFrom(NavigationParameters parameters)
