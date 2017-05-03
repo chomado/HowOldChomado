@@ -10,11 +10,11 @@ namespace HowOldChomado
     {
         public App(IPlatformInitializer initializer = null) : base(initializer) { }
 
-        protected override void OnInitialized()
+        protected override async void OnInitialized()
         {
             this.InitializeComponent();
 
-            this.NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await this.NavigationService.NavigateAsync("NavigationPage/MainPage");
         }
 
         protected override void RegisterTypes()

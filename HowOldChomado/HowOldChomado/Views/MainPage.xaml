@@ -4,13 +4,89 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="HowOldChomado.Views.MainPage"
-             Title="MainPage">
+             Title="HowOld @chomado">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit" />
+        <ToolbarItem Text="Camera" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <On Platform="iOS">0,20,0,0</On>
         </OnPlatform>
     </ContentPage.Padding>
-    <StackLayout HorizontalOptions="Center"
-                 VerticalOptions="Center">
+    <StackLayout>
+        <Grid VerticalOptions="Start"
+              Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.RowSpan="4"
+                   WidthRequest="100"
+                   HeightRequest="100"
+                   HorizontalOptions="Center">
+                <Image.Source>
+                    <OnPlatform x:TypeArguments="ImageSource">
+                        <On Platform="iOS">noimage.png</On>
+                        <On Platform="Android">noimage.png</On>
+                        <On Platform="Windows">Assets/noimage.png</On>
+                    </OnPlatform>
+                </Image.Source>
+            </Image>
+
+            <Label Text="まどか"
+                   LineBreakMode="NoWrap"
+                   HorizontalTextAlignment="End"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="2" />
+            <Label Text="25才"
+                   LineBreakMode="NoWrap"
+                   HorizontalTextAlignment="End"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="2" />
+            <Image Grid.Row="2"
+                   Grid.Column="1"
+                   WidthRequest="20"
+                   HeightRequest="20">
+                <Image.Source>
+                    <OnPlatform x:TypeArguments="ImageSource">
+                        <On Platform="iOS">crown.png</On>
+                        <On Platform="Android">crown.png</On>
+                        <On Platform="Windows">Assets/crown.png</On>
+                    </OnPlatform>
+                </Image.Source>
+            </Image>
+
+            <Label Text="7才"
+                   LineBreakMode="NoWrap"
+                   HorizontalTextAlignment="End"
+                   Grid.Row="2"
+                   Grid.Column="2" />
+            <Label Text="(-18才)"
+                   LineBreakMode="NoWrap"
+                   HorizontalTextAlignment="End"
+                   Grid.Row="3"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="2" />
+        </Grid>
+        
+        <Button Text="+" />
+
+        <ListView VerticalOptions="EndAndExpand">
+            
+        </ListView>
+        
     </StackLayout>
 </ContentPage>
