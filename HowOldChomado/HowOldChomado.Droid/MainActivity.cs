@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Autofac;
 using Prism.Autofac.Forms;
+using Plugin.Permissions;
 
 namespace HowOldChomado.Droid
 {
@@ -24,7 +25,13 @@ namespace HowOldChomado.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App(new AndroidInitializer()));
         }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
+
 
     public class AndroidInitializer : IPlatformInitializer
     {

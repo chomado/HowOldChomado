@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto">
-  <uses-sdk android:minSdkVersion="23" />
-	<application android:label="HowOldChomado.Droid" android:theme="@style/MyTheme"></application>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="howoldchomado.howoldchomado">
+	<uses-sdk android:minSdkVersion="23" />
+	<application android:label="HowOldChomado.Droid" android:theme="@style/MyTheme">
+		<provider android:name="android.support.v4.content.FileProvider" android:authorities="howoldchomado.fileprovider" android:exported="false" android:grantUriPermissions="true">
+			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"></meta-data>
+		</provider>
+	</application>
 </manifest>
