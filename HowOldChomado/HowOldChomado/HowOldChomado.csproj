@@ -41,9 +41,12 @@
     <Compile Include="BusinessObjects\ImageRequest.cs" />
     <Compile Include="BusinessObjects\Player.cs" />
     <Compile Include="BusinessObjects\ScoreHistory.cs" />
+    <Compile Include="Converters\BinaryToImageSourceConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IScoreHistoryRepository.cs" />
     <Compile Include="Repositories\IPlayerRepository.cs" />
+    <Compile Include="Services\CameraService.cs" />
+    <Compile Include="Services\ICameraService.cs" />
     <Compile Include="Services\IFaceService.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\RegisterPageViewModel.cs" />

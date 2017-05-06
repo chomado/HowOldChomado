@@ -3,6 +3,7 @@ using Prism.Autofac;
 using Prism.Autofac.Forms;
 using HowOldChomado.Views;
 using Xamarin.Forms;
+using HowOldChomado.Services;
 
 namespace HowOldChomado
 {
@@ -19,6 +20,12 @@ namespace HowOldChomado
 
         protected override void RegisterTypes()
         {
+            // 写真を取る処理に必要
+            var builder = new ContainerBuilder();
+            builder.RegisterType<CameraService>()
+                .As<ICameraService>();
+            builder.Update(this.Container);
+
             this.Container.RegisterTypeForNavigation<NavigationPage>();
             this.Container.RegisterTypeForNavigation<MainPage>();
             this.Container.RegisterTypeForNavigation<RegisterPage>();

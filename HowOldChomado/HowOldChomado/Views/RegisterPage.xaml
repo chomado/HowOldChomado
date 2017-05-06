@@ -2,8 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:Converters="clr-namespace:HowOldChomado.Converters"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="HowOldChomado.Views.RegisterPage"
              Title="HowOld@chomado - Register -">
-  
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Converters:BinaryToImageSourceConverter x:Key="BinaryToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout>
+        <Image Source="{Binding Image, Converter={StaticResource BinaryToImageSourceConverter}}"
+                WidthRequest="150"
+                HeightRequest="150">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding TakePhotoCommand}" />
+            </Image.GestureRecognizers>
+        </Image>
+    </StackLayout>
 </ContentPage>
+    
