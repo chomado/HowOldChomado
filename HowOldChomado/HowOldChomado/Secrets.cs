@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HowOldChomado
 {
-    class Secrets
+    public static class Secrets
     {
     }
 }
