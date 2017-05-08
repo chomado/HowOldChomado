@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Autofac;
 using Prism.Autofac.Forms;
+using HowOldChomado.UWP.Services;
+using HowOldChomado.Services;
 
 namespace HowOldChomado.UWP
 {
@@ -31,7 +33,10 @@ namespace HowOldChomado.UWP
     {
         public void RegisterTypes(IContainer container)
         {
-
+            var builder = new ContainerBuilder();
+            builder.RegisterType<FileService>()
+                .As<IFileService>();
+            builder.Update(container);
         }
     }
 

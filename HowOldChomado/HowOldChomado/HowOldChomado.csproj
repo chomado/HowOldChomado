@@ -41,10 +41,14 @@
     <Compile Include="BusinessObjects\ImageRequest.cs" />
     <Compile Include="BusinessObjects\Player.cs" />
     <Compile Include="BusinessObjects\ScoreHistory.cs" />
+    <Compile Include="Consts.cs" />
     <Compile Include="Converters\BinaryToImageSourceConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\FaceService.cs" />
+    <Compile Include="Services\IFileService.cs" />
     <Compile Include="Repositories\IScoreHistoryRepository.cs" />
     <Compile Include="Repositories\IPlayerRepository.cs" />
+    <Compile Include="Repositories\PlayerRepository.cs" />
     <Compile Include="Secrets.cs" />
     <Compile Include="Secrets_sample.cs" />
     <Compile Include="Services\CameraService.cs" />

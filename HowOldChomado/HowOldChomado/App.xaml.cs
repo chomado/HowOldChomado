@@ -30,6 +30,9 @@ namespace HowOldChomado
             builder.RegisterType<FaceService>()
                 .As<IFaceService>();
 
+            builder.RegisterType<PlayerRepository>()
+                .As<IPlayerRepository>();
+
             builder.Update(this.Container);
 
             this.Container.RegisterTypeForNavigation<NavigationPage>();

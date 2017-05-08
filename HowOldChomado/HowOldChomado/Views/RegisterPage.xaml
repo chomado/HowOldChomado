@@ -19,6 +19,21 @@
                 <TapGestureRecognizer Command="{Binding TakePhotoCommand}" />
             </Image.GestureRecognizers>
         </Image>
+        <Entry Placeholder="Name"
+               HorizontalOptions="FillAndExpand"
+               HorizontalTextAlignment="End"
+               Text="{Binding Name, Mode=TwoWay}" />
+        <StackLayout HorizontalOptions="FillAndExpand">
+            <Entry Placeholder="Age"
+                   HorizontalOptions="FillAndExpand"
+                   HorizontalTextAlignment="End"
+                   Text="{Binding Age, Mode=TwoWay}" />
+            <Label Text=""
+                   HorizontalOptions="End" />
+        </StackLayout>
+        <Button Text="Register"
+                HorizontalOptions="FillAndExpand"
+                Command="{Binding RegisterCommand}" />
     </StackLayout>
 </ContentPage>
     

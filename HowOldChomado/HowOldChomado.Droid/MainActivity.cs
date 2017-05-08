@@ -9,6 +9,8 @@ using Android.OS;
 using Autofac;
 using Prism.Autofac.Forms;
 using Plugin.Permissions;
+using HowOldChomado.Droid.Services;
+using HowOldChomado.Services;
 
 namespace HowOldChomado.Droid
 {
@@ -37,7 +39,11 @@ namespace HowOldChomado.Droid
     {
         public void RegisterTypes(IContainer container)
         {
-
+            // 各OSごとに作ったクラス(FileService)は、各OSごとにDIコンテナに登録しないといけなく.
+            var builder = new ContainerBuilder();
+            builder.RegisterType<FileService>()
+                .As<IFileService>();
+            builder.Update(container);
         }
     }
 }

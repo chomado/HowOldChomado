@@ -5,6 +5,8 @@ using Foundation;
 using UIKit;
 using Autofac;
 using Prism.Autofac.Forms;
+using HowOldChomado.iOS.Services;
+using HowOldChomado.Services;
 
 namespace HowOldChomado.iOS
 {
@@ -34,7 +36,10 @@ namespace HowOldChomado.iOS
     {
         public void RegisterTypes(IContainer container)
         {
-
+            var builder = new ContainerBuilder();
+            builder.RegisterType<FileService>()
+                .As<IFileService>();
+            builder.Update(container);
         }
     }
 
