@@ -55,6 +55,7 @@ namespace HowOldChomado.ViewModels
                 {
                     return false;
                 }
+                return int.TryParse(s: this.Age, result: out var _); // C# 7
             }
         }
 
