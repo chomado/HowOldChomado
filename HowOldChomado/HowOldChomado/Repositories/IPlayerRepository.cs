@@ -11,5 +11,7 @@ namespace HowOldChomado.Repositories
     {
         Task<IEnumerable<Player>> FindAllAsync();
         Task AddAsync(Player p);
+        Task<Player> FindByDisplayNameAsync(string displayName);
+        Task UpdateAsync(Player player);
     }
 }

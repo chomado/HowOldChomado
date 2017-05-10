@@ -36,6 +36,10 @@ namespace HowOldChomado.Repositories
                 .Where(x => x.DisplayName == displayName)
                 .FirstOrDefaultAsync();
         }
-        
+
+        public async Task UpdateAsync(Player player)
+        {
+            await this.Connection.UpdateAsync(player);
+        }
     }
 }

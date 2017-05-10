@@ -1,10 +1,15 @@
-﻿using Autofac;
+﻿using System.Threading.Tasks;
+using Autofac;
 using Prism.Autofac;
 using Prism.Autofac.Forms;
-using HowOldChomado.Views;
 using Xamarin.Forms;
+
+using HowOldChomado.Views;
 using HowOldChomado.Services;
 using HowOldChomado.Repositories;
+using HowOldChomado.BusinessObjects;
+
+using SQLite;
 
 namespace HowOldChomado
 {
@@ -17,6 +22,16 @@ namespace HowOldChomado
             this.InitializeComponent();
 
             await this.NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await this.InializeDatabaseAsync();
+        }
+
+        // データベースにクラスの型にあわせたテーブルを作ってru
+        private async Task InializeDatabaseAsync()
+        {
+            var fileService = this.Container.Resolve<IFileService>();
+            var connection = new SQLiteAsyncConnection(databasePath: fileService.GetLocalFilePath(fileName: Consts.DatabaseFileName));
+            await connection.CreateTableAsync<Player>(CreateFlags.ImplicitIndex);
+            await connection.CreateTableAsync<ScoreHistory>(CreateFlags.ImplicitIndex);
         }
 
         protected override void RegisterTypes()

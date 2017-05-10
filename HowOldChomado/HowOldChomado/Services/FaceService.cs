@@ -24,7 +24,7 @@ namespace HowOldChomado.Services
 
         public async Task RegisterFaceAsync(string faceId, ImageRequest request)
         {
-            var client = new FaceServiceClient(subscriptionKey: Secrets.CongnitiveServiceFaceApiKey);
+            var client = new FaceServiceClient(subscriptionKey: Secrets.CongnitiveServiceFaceApiKey, apiRoot: Consts.CognitiveServiceFaceApiEndPoint);
 
             try
             {
