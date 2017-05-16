@@ -113,11 +113,18 @@ namespace HowOldChomado.ViewModels
             }
 
             await this.FaceService.RegisterFaceAsync(player.FaceId, new ImageRequest { Image = this.Image });
+
+            await this.PageDialogService.DisplayActionSheetAsync("情報", $"{this.Name}さんを登録しました", "OK");
         }
 
         private async Task TakePhotoAsync()
         {
-            this.Image = await this.CameraService.TakePhotosAsync();
+            var result = await this.CameraService.TakePhotosAsync();
+            if (result == null)
+            {
+                return;
+            }
+            this.Image = result;
         }
     }
 }

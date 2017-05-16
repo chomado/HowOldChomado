@@ -23,7 +23,9 @@ namespace HowOldChomado.Repositories
 
         public async Task<IEnumerable<Player>> FindAllAsync()
         {
-            return await this.Connection.Table<Player>().ToListAsync();
+            return await this.Connection.Table<Player>()
+                             .OrderBy(x => x.Id)
+                             .ToListAsync();
         }
         public async Task AddAsync(Player p)
         {

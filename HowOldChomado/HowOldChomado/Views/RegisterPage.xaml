@@ -2,29 +2,25 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-             xmlns:Converters="clr-namespace:HowOldChomado.Converters"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="HowOldChomado.Views.RegisterPage"
              Title="HowOld@chomado - Register -">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Converters:BinaryToImageSourceConverter x:Key="BinaryToImageSourceConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
     <StackLayout>
         <Image Source="{Binding Image, Converter={StaticResource BinaryToImageSourceConverter}}"
-                WidthRequest="150"
-                HeightRequest="150">
+               WidthRequest="150"
+               HeightRequest="150"
+               HorizontalOptions="Center">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding TakePhotoCommand}" />
             </Image.GestureRecognizers>
         </Image>
-        <Entry Placeholder="Name"
+        <Entry Placeholder="名前"
                HorizontalOptions="FillAndExpand"
                HorizontalTextAlignment="End"
                Text="{Binding Name, Mode=TwoWay}" />
-        <StackLayout HorizontalOptions="FillAndExpand">
-            <Entry Placeholder="Age"
+        <StackLayout HorizontalOptions="FillAndExpand"
+                     Orientation="Horizontal">
+            <Entry Placeholder="年齢"
                    HorizontalOptions="FillAndExpand"
                    HorizontalTextAlignment="End"
                    Text="{Binding Age, Mode=TwoWay}" />

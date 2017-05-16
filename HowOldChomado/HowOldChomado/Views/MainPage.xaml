@@ -86,7 +86,23 @@
         
         <Button Text="+" />
 
-        <ListView VerticalOptions="EndAndExpand">
+        <ListView VerticalOptions="EndAndExpand"
+                  ItemsSource="{Binding Players}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Image Source="{Binding Picture,Converter={StaticResource BinaryToImageSourceConverter}}"
+                                   HeightRequest="50"
+                                   WidthRequest="50"
+                                   Margin="5"
+                                   Aspect="AspectFill" />
+                            <Label Text="{Binding DisplayName}"
+                                   VerticalOptions="Center" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
             
         </ListView>
         
