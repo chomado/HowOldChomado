@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.3
+VisualStudioVersion = 15.0.26510.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HowOldChomado", "HowOldChomado\HowOldChomado\HowOldChomado.csproj", "{B4ECF4CB-2FD3-41F5-90A0-90699AF937D2}"
 EndProject
@@ -228,6 +228,8 @@ Global
 		{3B182F90-34C0-451C-98E6-D58A0B967552}.AppStore|x86.Build.0 = Release|x86
 		{3B182F90-34C0-451C-98E6-D58A0B967552}.AppStore|x86.Deploy.0 = Release|x86
 		{3B182F90-34C0-451C-98E6-D58A0B967552}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{3B182F90-34C0-451C-98E6-D58A0B967552}.Debug|Any CPU.Build.0 = Debug|x86
+		{3B182F90-34C0-451C-98E6-D58A0B967552}.Debug|Any CPU.Deploy.0 = Debug|x86
 		{3B182F90-34C0-451C-98E6-D58A0B967552}.Debug|ARM.ActiveCfg = Debug|ARM
 		{3B182F90-34C0-451C-98E6-D58A0B967552}.Debug|ARM.Build.0 = Debug|ARM
 		{3B182F90-34C0-451C-98E6-D58A0B967552}.Debug|ARM.Deploy.0 = Debug|ARM
