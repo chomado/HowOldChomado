@@ -56,6 +56,7 @@ namespace HowOldChomado
             this.Container.RegisterTypeForNavigation<NavigationPage>();
             this.Container.RegisterTypeForNavigation<MainPage>();
             this.Container.RegisterTypeForNavigation<RegisterPage>();
+            this.Container.RegisterTypeForNavigation<GamePage>();
         }
     }
 }

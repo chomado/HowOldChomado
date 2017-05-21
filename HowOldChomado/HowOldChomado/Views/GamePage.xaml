@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="HowOldChomado.Views.GamePage"
+             Title="HowOld@chomado - Game -">
+    <StackLayout>
+        <Image Source="{Binding Picture, Converter={StaticResource BinaryToImageSourceConverter}}"
+               WidthRequest="250"
+               HeightRequest="250"
+               Aspect="AspectFill" />
+        <ListView VerticalOptions="FillAndExpand"
+                  ItemsSource="{Binding FaceDetectionResults}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Label Text="{Binding Player.DisplayName}" />
+                            <Label Text="{Binding Player.Age, StringFormat='実年齢: {0}才'}" />
+                            <Label Text="{Binding FaceDetectionResult.Age, StringFormat='実年齢: {0}才'}}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

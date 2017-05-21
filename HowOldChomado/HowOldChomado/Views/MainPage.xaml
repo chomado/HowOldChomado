@@ -9,7 +9,9 @@
         <ToolbarItem Text="Edit"
                      Command="{Binding NavigateCommand}"
                      CommandParameter="RegisterPage" />
-        <ToolbarItem Text="Camera" />
+        <ToolbarItem Text="Camera" 
+                     Command="{Binding NavigateCommand}"
+                     CommandParameter="GamePage" />
     </ContentPage.ToolbarItems>
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
@@ -18,7 +20,8 @@
     </ContentPage.Padding>
     <StackLayout>
         <Grid VerticalOptions="Start"
-              Padding="10">
+              Padding="10"
+              HorizontalOptions="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
