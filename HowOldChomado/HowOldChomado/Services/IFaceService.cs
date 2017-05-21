@@ -14,5 +14,7 @@ namespace HowOldChomado.Services
         // 画像を渡したら、その画像に写っている人が何歳かを返してくれるメソッド
         // 顔を登録する
         Task RegisterFaceAsync(string faceId, ImageRequest request);
+        Task<Guid> CreateFaceAsync(ImageRequest request);
+        Task AddFaceAsync(string personId, ImageRequest request);
     }
 }

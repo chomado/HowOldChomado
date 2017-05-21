@@ -13,7 +13,7 @@ namespace HowOldChomado.BusinessObjects
         [PrimaryKey]
         [AutoIncrement]
         public int Id { get; set; }
-        public string FaceId { get; set; }
+        public string PersonId { get; set; }
         public byte[] Picture { get; set; }
         public string DisplayName { get; set; }
         public int Age { get; set; }

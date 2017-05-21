@@ -26,7 +26,7 @@ namespace HowOldChomado.Repositories
         public async Task<ScoreHistory> FindMaxScoreHistoryByPlayerIdAsync(int playerId)
         {
             var list = await this.Connection
-                .QueryAsync<ScoreHistory>("SELECT * FROM ScoreHistory WHERE PlayerId = ? AND Age = MIN(Age)", playerId);
+                .QueryAsync<ScoreHistory>(@"SELECT * FROM ScoreHistory WHERE PersonId = ? AND Age = (SELECT MIN(Age) FROM ScoreHistory WHERE PersonId = ?)", playerId, playerId);
             return list.FirstOrDefault();
         }
     }

@@ -10,6 +10,7 @@ using HowOldChomado.Repositories;
 using HowOldChomado.BusinessObjects;
 
 using SQLite;
+using System;
 
 namespace HowOldChomado
 {
@@ -21,8 +22,9 @@ namespace HowOldChomado
         {
             this.InitializeComponent();
 
-            await this.NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await this.NavigationService.NavigateAsync("SplashPage");
             await this.InializeDatabaseAsync();
+            await this.NavigationService.NavigateAsync("NavigationPage/MainPage");
         }
 
         // データベースにクラスの型にあわせたテーブルを作ってru
@@ -32,6 +34,11 @@ namespace HowOldChomado
             var connection = new SQLiteAsyncConnection(databasePath: fileService.GetLocalFilePath(fileName: Consts.DatabaseFileName));
             await connection.CreateTableAsync<Player>(CreateFlags.ImplicitIndex);
             await connection.CreateTableAsync<ScoreHistory>(CreateFlags.ImplicitIndex);
+            await connection.CreateTableAsync<PersonListId>(CreateFlags.ImplicitIndex);
+            if (await connection.Table<PersonListId>().FirstOrDefaultAsync() == null)
+            {
+                await connection.InsertAsync(new PersonListId { Id = Guid.NewGuid().ToString() });
+            }
         }
 
         protected override void RegisterTypes()
@@ -51,12 +58,16 @@ namespace HowOldChomado
             builder.RegisterType<ScoreHistoryRepository>()
                 .As<IScoreHistoryRepository>();
 
+            builder.RegisterType<PersonListIdRepository>()
+                .As<IPersonListIdRepository>();
+
             builder.Update(this.Container);
 
             this.Container.RegisterTypeForNavigation<NavigationPage>();
             this.Container.RegisterTypeForNavigation<MainPage>();
             this.Container.RegisterTypeForNavigation<RegisterPage>();
             this.Container.RegisterTypeForNavigation<GamePage>();
+            this.Container.RegisterTypeForNavigation<SplashPage>();
         }
     }
 }

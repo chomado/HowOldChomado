@@ -91,30 +91,36 @@ namespace HowOldChomado.ViewModels
             }
 
             var player = await this.PlayerRepository.FindByDisplayNameAsync(displayName: this.Name);
-            if (player == null)
+            if (player != null)
             {
                 player = new Player
                 {
                     Age = int.Parse(this.Age),
                     DisplayName = this.Name,
-                    FaceId = Guid.NewGuid().ToString(),
+                    PersonId = Guid.NewGuid().ToString(),
                     Picture = this.Image,
                 };
                 await this.PlayerRepository.AddAsync(player);
             }
             else
             {
-                if (!await this.PageDialogService.DisplayAlertAsync(title: "情報", message: $"{this.Name}さんは既に登録されています。年齢と写真を更新しますか？", acceptButton: "OK", cancelButton: "Cancel"))
+                var personId = await this.FaceService.CreateFaceAsync(new ImageRequest { Image = this.Image });
+                var newPlayer = new Player
                 {
-                    return;
-                }
-                player.Age = int.Parse(this.Age);
-                await this.PlayerRepository.UpdateAsync(player);
+                    Age = int.Parse(this.Age),
+                    DisplayName = this.Name,
+                    PersonId = personId.ToString(),
+                    Picture = this.Image,
+                };
+                await this.PlayerRepository.AddAsync(newPlayer);
             }
 
-            await this.FaceService.RegisterFaceAsync(player.FaceId, new ImageRequest { Image = this.Image });
 
-            await this.PageDialogService.DisplayActionSheetAsync("情報", $"{this.Name}さんを登録しました", "OK");
+            await this.PageDialogService.DisplayAlertAsync("情報", $"{this.Name}さんを登録しました", "OK");
+            this.Name = "";
+            this.Age = "";
+            this.Image = null;
+            await this.FaceService.RegisterFaceAsync(player.PersonId, new ImageRequest { Image = this.Image });
         }
 
         private async Task TakePhotoAsync()

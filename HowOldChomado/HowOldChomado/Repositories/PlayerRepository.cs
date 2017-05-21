@@ -47,7 +47,7 @@ namespace HowOldChomado.Repositories
         public async Task<Player> FindByFaceIdAsync(string faceId)
         {
             return await this.Connection.Table<Player>()
-                .Where(x => x.FaceId == faceId)
+                .Where(x => x.PersonId == faceId)
                 .FirstOrDefaultAsync();
         }
     }

@@ -18,7 +18,7 @@
                         <StackLayout>
                             <Label Text="{Binding Player.DisplayName}" />
                             <Label Text="{Binding Player.Age, StringFormat='実年齢: {0}才'}" />
-                            <Label Text="{Binding FaceDetectionResult.Age, StringFormat='実年齢: {0}才'}}" />
+                            <Label Text="{Binding FaceDetectionResult.Age, StringFormat='判定: {0}才'}" />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
