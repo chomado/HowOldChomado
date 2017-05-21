@@ -48,6 +48,9 @@ namespace HowOldChomado
             builder.RegisterType<PlayerRepository>()
                 .As<IPlayerRepository>();
 
+            builder.RegisterType<ScoreHistoryRepository>()
+                .As<IScoreHistoryRepository>();
+
             builder.Update(this.Container);
 
             this.Container.RegisterTypeForNavigation<NavigationPage>();

@@ -10,6 +10,7 @@ namespace HowOldChomado.BusinessObjects
     public class FaceDetectionResult
     {
         public string FaceId { get; set; }
+        public int Age { get; set; }
         public FaceRectangle Rectangle { get; set; }
     }
 }

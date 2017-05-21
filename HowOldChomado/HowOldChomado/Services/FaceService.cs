@@ -12,14 +12,26 @@ namespace HowOldChomado.Services
 {
     public class FaceService : IFaceService
     {
-        public Task<IEnumerable<AgeResult>> DetectAgeAsync(ImageRequest request)
+        public async Task<IEnumerable<FaceDetectionResult>> DetectFacesAsync(ImageRequest request)
         {
-            throw new NotImplementedException();
-        }
+            var client = new FaceServiceClient(subscriptionKey: Secrets.CongnitiveServiceFaceApiKey, apiRoot: Consts.CognitiveServiceFaceApiEndPoint);
+            var results = await client.DetectAsync(imageStream: new MemoryStream(request.Image), returnFaceAttributes: new[]
+            {
+                FaceAttributeType.Age,
+            });
 
-        public Task<IEnumerable<FaceDetectionResult>> DetectFacesAsync(ImageRequest request)
-        {
-            throw new NotImplementedException();
+            return results.Select(x => new FaceDetectionResult
+            {
+                FaceId = x.FaceId.ToString(),
+                Age = (int)x.FaceAttributes.Age,
+                Rectangle = new FaceRectangle
+                {
+                    Top = x.FaceRectangle.Top,
+                    Left = x.FaceRectangle.Left,
+                    Width = x.FaceRectangle.Width,
+                    Height = x.FaceRectangle.Height,
+                }
+            });
         }
 
         public async Task RegisterFaceAsync(string faceId, ImageRequest request)

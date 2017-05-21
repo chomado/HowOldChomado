@@ -36,23 +36,22 @@
                    Grid.RowSpan="4"
                    WidthRequest="100"
                    HeightRequest="100"
-                   HorizontalOptions="Center">
+                   HorizontalOptions="Center"
+                   Aspect="AspectFill">
                 <Image.Source>
                     <OnPlatform x:TypeArguments="ImageSource">
-                        <On Platform="iOS">noimage.png</On>
-                        <On Platform="Android">noimage.png</On>
+                        <On Platform="iOS, Android">noimage.png</On>
                         <On Platform="Windows">Assets/noimage.png</On>
                     </OnPlatform>
                 </Image.Source>
             </Image>
-
-            <Label Text="まどか"
+            <Label Text="{Binding SelectedPlayer.DisplayName}"
                    LineBreakMode="NoWrap"
                    HorizontalTextAlignment="End"
                    Grid.Row="0"
                    Grid.Column="1"
                    Grid.ColumnSpan="2" />
-            <Label Text="25才"
+            <Label Text="{Binding SelectedPlayer.Age, StringFormat='{0}才'}"
                    LineBreakMode="NoWrap"
                    HorizontalTextAlignment="End"
                    Grid.Row="1"
@@ -71,23 +70,22 @@
                 </Image.Source>
             </Image>
 
-            <Label Text="7才"
+            <Label Text="{Binding MaxScore.Age, StringFormat='{0}才'}"
                    LineBreakMode="NoWrap"
                    HorizontalTextAlignment="End"
                    Grid.Row="2"
                    Grid.Column="2" />
-            <Label Text="(-18才)"
+            <Label Text="{Binding ScoreDiff, StringFormat='({0}才)'}"
                    LineBreakMode="NoWrap"
                    HorizontalTextAlignment="End"
                    Grid.Row="3"
                    Grid.Column="1"
                    Grid.ColumnSpan="2" />
         </Grid>
-        
-        <Button Text="+" />
 
         <ListView VerticalOptions="EndAndExpand"
-                  ItemsSource="{Binding Players}">
+                  ItemsSource="{Binding Players}"
+                  SelectedItem="{Binding SelectedPlayer, Mode=TwoWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -103,8 +101,8 @@
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            
+
         </ListView>
-        
+
     </StackLayout>
 </ContentPage>

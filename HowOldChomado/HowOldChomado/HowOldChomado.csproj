@@ -35,7 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BusinessObjects\AgeResult.cs" />
     <Compile Include="BusinessObjects\FaceDetectionResult.cs" />
     <Compile Include="BusinessObjects\FaceRectangle.cs" />
     <Compile Include="BusinessObjects\ImageRequest.cs" />
@@ -44,6 +43,7 @@
     <Compile Include="Consts.cs" />
     <Compile Include="Converters\BinaryToImageSourceConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ScoreHistoryRepository.cs" />
     <Compile Include="Services\FaceService.cs" />
     <Compile Include="Services\IFileService.cs" />
     <Compile Include="Repositories\IScoreHistoryRepository.cs" />

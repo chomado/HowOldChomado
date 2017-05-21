@@ -9,7 +9,7 @@ namespace HowOldChomado.Repositories
 {
     public interface IScoreHistoryRepository
     {
-        Task<ScoreHistory> FindByPlayerIdAsync(int playerId);
+        Task<ScoreHistory> FindMaxScoreHistoryByPlayerIdAsync(int playerId);
         Task AddAsync(ScoreHistory history);
     }
 }
