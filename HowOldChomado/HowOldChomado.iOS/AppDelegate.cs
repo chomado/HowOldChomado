@@ -7,6 +7,7 @@ using Autofac;
 using Prism.Autofac.Forms;
 using HowOldChomado.iOS.Services;
 using HowOldChomado.Services;
+using ImageCircle.Forms.Plugin.iOS;
 
 namespace HowOldChomado.iOS
 {
@@ -26,6 +27,7 @@ namespace HowOldChomado.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            ImageCircleRenderer.Init();
             LoadApplication(new App(new iOSInitializer()));
 
             return base.FinishedLaunching(app, options);

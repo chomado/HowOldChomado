@@ -11,6 +11,7 @@ using Prism.Autofac.Forms;
 using Plugin.Permissions;
 using HowOldChomado.Droid.Services;
 using HowOldChomado.Services;
+using ImageCircle.Forms.Plugin.Droid;
 
 namespace HowOldChomado.Droid
 {
@@ -25,6 +26,7 @@ namespace HowOldChomado.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            ImageCircleRenderer.Init();
             LoadApplication(new App(new AndroidInitializer()));
         }
 

@@ -16,6 +16,7 @@ using Autofac;
 using Prism.Autofac.Forms;
 using HowOldChomado.UWP.Services;
 using HowOldChomado.Services;
+using ImageCircle.Forms.Plugin.UWP;
 
 namespace HowOldChomado.UWP
 {
@@ -24,7 +25,7 @@ namespace HowOldChomado.UWP
         public MainPage()
         {
             this.InitializeComponent();
-
+            ImageCircleRenderer.Init();
             LoadApplication(new HowOldChomado.App(new UwpInitializer()));
         }
     }
