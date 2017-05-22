@@ -5,6 +5,16 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="HowOldChomado.Views.GamePage"
              Title="HowOld@chomado - Game -">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Start"
+                     Command="{Binding StartGameCommand}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="Windows">Assets/game.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
     <StackLayout>
         <Image Source="{Binding Picture, Converter={StaticResource BinaryToImageSourceConverter}}"
                WidthRequest="250"
@@ -19,6 +29,7 @@
                             <Label Text="{Binding Player.DisplayName}" />
                             <Label Text="{Binding Player.Age, StringFormat='実年齢: {0}才'}" />
                             <Label Text="{Binding FaceDetectionResult.Age, StringFormat='判定: {0}才'}" />
+                            <Label Text="{Binding Diff}" />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

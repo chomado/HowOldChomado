@@ -11,5 +11,7 @@ namespace HowOldChomado.ViewModels
     {
         public FaceDetectionResult FaceDetectionResult { get; set; }
         public Player Player { get; set; }
+        public bool IsWinner { get; set; }
+        public int Diff => this.FaceDetectionResult.Age - this.Player?.Age ?? 0;
     }
 }

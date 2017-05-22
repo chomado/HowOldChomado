@@ -109,7 +109,9 @@
     <None Include="HowOldChomado.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\add.png" />
     <Content Include="Assets\crown.png" />
+    <Content Include="Assets\game.png" />
     <Content Include="Assets\noimage.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

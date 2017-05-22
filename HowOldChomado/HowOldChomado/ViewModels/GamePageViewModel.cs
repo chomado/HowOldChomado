@@ -34,6 +34,7 @@ namespace HowOldChomado.ViewModels
             set { this.SetProperty(ref this.faceDetectionResults, value); }
         }
 
+        public DelegateCommand StartGameCommand { get; }
 
         public GamePageViewModel(INavigationService navigationService,
             ICameraService cameraService,
@@ -46,13 +47,24 @@ namespace HowOldChomado.ViewModels
             this.FaceService = faceService;
             this.PlayerRepository = playerRepository;
             this.ScoreHistoryRepository = scoreHistoryRepository;
+
+            this.StartGameCommand = new DelegateCommand(this.StartGameExecute);
         }
 
         public void OnNavigatedFrom(NavigationParameters parameters)
         {
         }
 
-        public async void OnNavigatedTo(NavigationParameters parameters)
+        public void OnNavigatedTo(NavigationParameters parameters)
+        {
+            this.StartGameCommand.Execute();
+        }
+
+        public void OnNavigatingTo(NavigationParameters parameters)
+        {
+        }
+
+        private async void StartGameExecute()
         {
             var picture = await this.CameraService.TakePhotosAsync();
             if (picture == null)
@@ -83,12 +95,14 @@ namespace HowOldChomado.ViewModels
                     });
                 }
 
+                var winnerDiff = l.Min(x => x.Diff);
+                foreach (var player in l.Where(x => x.Diff == winnerDiff))
+                {
+                    player.IsWinner = true;
+                }
                 this.FaceDetectionResults = l;
             }
         }
 
-        public void OnNavigatingTo(NavigationParameters parameters)
-        {
-        }
     }
 }

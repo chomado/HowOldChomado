@@ -9,10 +9,22 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Edit"
                      Command="{Binding NavigateCommand}"
-                     CommandParameter="RegisterPage" />
+                     CommandParameter="RegisterPage">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="Windows">Assets/add.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
         <ToolbarItem Text="Camera"
                      Command="{Binding NavigateCommand}"
-                     CommandParameter="GamePage" />
+                     CommandParameter="GamePage">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="Windows">Assets/game.png</On>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
