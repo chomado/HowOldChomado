@@ -2,9 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="HowOldChomado.Views.GamePage"
-             Title="HowOld@chomado - Game -">
+             Title="HowOld@chomado - Game -"
+             BackgroundColor="Black">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Start"
                      Command="{Binding StartGameCommand}">
@@ -16,31 +18,12 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <Grid>
-        <StackLayout>
-            <Image Source="{Binding Picture, Converter={StaticResource BinaryToImageSourceConverter}}"
-                   WidthRequest="250"
-                   HeightRequest="250"
-                   Aspect="AspectFill" />
-            <ListView VerticalOptions="FillAndExpand"
-                      ItemsSource="{Binding FaceDetectionResults}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout>
-                                <Label Text="{Binding Player.DisplayName}" />
-                                <Label Text="{Binding Player.Age, StringFormat='実年齢: {0}才'}" />
-                                <Label Text="{Binding FaceDetectionResult.Age, StringFormat='判定: {0}才'}" />
-                                <Label Text="{Binding Diff}" />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
+        <skia:SKCanvasView x:Name="canvas"
+                           PaintSurface="SKCanvasView_PaintSurface" />
         <Frame BackgroundColor="LightGray"
-               Opacity="0.1"
+               Opacity="0.3"
                IsVisible="{Binding IsBusy}">
-            <ActivityIndicator IsRunning="{Binding IsRunning}"
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
                                IsVisible="{Binding IsBusy}"
                                VerticalOptions="Center" />
         </Frame>
