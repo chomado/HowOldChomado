@@ -84,6 +84,7 @@ namespace HowOldChomado.ViewModels
         public async void OnNavigatedTo(NavigationParameters parameters)
         {
             this.Players = await this.PlayerRepository.FindAllAsync();
+            this.SelectedPlayer = this.Players.FirstOrDefault();
         }
 
         private async Task UpdateMaxScoreAsync()
