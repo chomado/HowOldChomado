@@ -23,36 +23,43 @@ namespace HowOldChomado.Services
 
         public async Task<IEnumerable<FaceDetectionResult>> DetectFacesAsync(ImageRequest request)
         {
-            var client = new FaceServiceClient(subscriptionKey: Secrets.CongnitiveServiceFaceApiKey, apiRoot: Consts.CognitiveServiceFaceApiEndPoint);
-            var results = await client.DetectAsync(imageStream: new MemoryStream(request.Image), returnFaceAttributes: new[]
+            try
             {
+                var client = new FaceServiceClient(subscriptionKey: Secrets.CongnitiveServiceFaceApiKey, apiRoot: Consts.CognitiveServiceFaceApiEndPoint);
+                var results = await client.DetectAsync(imageStream: new MemoryStream(request.Image), returnFaceAttributes: new[]
+                {
                 FaceAttributeType.Age,
             });
 
-            var personListId = await this.PersonListIdRepository.GetIdAsync();
-            var identifyResults = (await client.IdentifyAsync(personListId, results.Select(x => x.FaceId).ToArray()))
-                .ToDictionary(x => x.FaceId);
+                var personListId = await this.PersonListIdRepository.GetIdAsync();
+                var identifyResults = (await client.IdentifyAsync(personListId, results.Select(x => x.FaceId).ToArray()))
+                    .ToDictionary(x => x.FaceId);
 
-            var l = new List<FaceDetectionResult>();
-            foreach (var r in results)
-            {
-                IdentifyResult identifyResult = null;
-                identifyResults.TryGetValue(r.FaceId, out identifyResult);
-                var faceDetectionResult = new FaceDetectionResult
+                var l = new List<FaceDetectionResult>();
+                foreach (var r in results)
                 {
-                    FaceId = identifyResult?.Candidates.FirstOrDefault()?.PersonId.ToString() ?? new Guid().ToString(),
-                    Age = (int)r.FaceAttributes.Age,
-                    Rectangle = new BusinessObjects.FaceRectangle
+                    IdentifyResult identifyResult = null;
+                    identifyResults.TryGetValue(r.FaceId, out identifyResult);
+                    var faceDetectionResult = new FaceDetectionResult
                     {
-                        Top = r.FaceRectangle.Top,
-                        Left = r.FaceRectangle.Left,
-                        Width = r.FaceRectangle.Width,
-                        Height = r.FaceRectangle.Height,
-                    }
-                };
-                l.Add(faceDetectionResult);
+                        FaceId = identifyResult?.Candidates.FirstOrDefault()?.PersonId.ToString() ?? new Guid().ToString(),
+                        Age = (int)r.FaceAttributes.Age,
+                        Rectangle = new BusinessObjects.FaceRectangle
+                        {
+                            Top = r.FaceRectangle.Top,
+                            Left = r.FaceRectangle.Left,
+                            Width = r.FaceRectangle.Width,
+                            Height = r.FaceRectangle.Height,
+                        }
+                    };
+                    l.Add(faceDetectionResult);
+                }
+                return l;
             }
-            return l;
+            catch (FaceAPIException)
+            {
+                return Enumerable.Empty<FaceDetectionResult>();
+            }
         }
 
         public async Task<Guid> CreateFaceAsync(ImageRequest request)

@@ -107,11 +107,15 @@ namespace HowOldChomado.ViewModels
                         });
                     }
 
-                    var winnerDiff = l.Min(x => x.Diff);
-                    foreach (var player in l.Where(x => x.Diff == winnerDiff))
+                    if (l.Any())
                     {
-                        player.IsWinner = true;
+                        var winnerDiff = l.Min(x => x.Diff);
+                        foreach (var player in l.Where(x => x.Diff == winnerDiff))
+                        {
+                            player.IsWinner = true;
+                        }
                     }
+
                     this.FaceDetectionResults = l;
                 }
             }
