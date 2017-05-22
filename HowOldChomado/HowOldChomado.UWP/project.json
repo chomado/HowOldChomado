@@ -5,6 +5,7 @@
     "Prism.Autofac.Forms": "6.3.0",
     "Prism.Core": "6.3.0",
     "Prism.Forms": "6.3.0",
+    "SkiaSharp.Views.Forms": "1.58.0",
     "sqlite-net-pcl": "1.3.1",
     "System.ValueTuple": "4.3.1",
     "Xam.Plugin.Media": "2.6.2",
