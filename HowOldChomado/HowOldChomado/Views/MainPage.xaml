@@ -31,18 +31,25 @@
             <On Platform="iOS">0,20,0,0</On>
         </OnPlatform>
     </ContentPage.Padding>
-    <StackLayout>
-        <StackLayout Orientation="Horizontal"
-                     Padding="25, 5">
-            <Frame x:Name="frameImageHost"
-                   HorizontalOptions="FillAndExpand">
-                <controls:CircleImage x:Name="imageTop"
-                                      Aspect="AspectFill"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Frame BackgroundColor="Transparent"
+                   HasShadow="False"
+                   Grid.Column="0">
+                <controls:CircleImage Aspect="AspectFill"
                                       Source="{Binding SelectedPlayer.Picture, Converter={StaticResource BinaryToImageSourceConverter}}" />
             </Frame>
-            <StackLayout HorizontalOptions="End"
-                         VerticalOptions="Center"
-                         Margin="5, 50">
+            <StackLayout VerticalOptions="Center"
+                         Margin="0, 0, 25, 0"
+                         Grid.Column="1">
                 <Label Text="{Binding SelectedPlayer.DisplayName}"
                        LineBreakMode="NoWrap"
                        HorizontalTextAlignment="End"
@@ -72,11 +79,11 @@
                        HorizontalTextAlignment="End"
                        FontSize="Medium" />
             </StackLayout>
-        </StackLayout>
+        </Grid>
 
-        <ListView VerticalOptions="EndAndExpand"
-                  ItemsSource="{Binding Players}"
-                  SelectedItem="{Binding SelectedPlayer, Mode=TwoWay}">
+        <ListView ItemsSource="{Binding Players}"
+                  SelectedItem="{Binding SelectedPlayer, Mode=TwoWay}"
+                  Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -93,5 +100,5 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-    </StackLayout>
+    </Grid>
 </ContentPage>

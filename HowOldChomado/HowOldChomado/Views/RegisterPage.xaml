@@ -5,42 +5,52 @@
              xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="HowOldChomado.Views.RegisterPage"
-             Title="HowOld@chomado - Register -">
+             Title="HowOld@chomad - Register -">
     <Grid>
-        <StackLayout>
-            <controls:CircleImage Source="{Binding Image, Converter={StaticResource BinaryToImageSourceConverter}}"
-                                  WidthRequest="150"
-                                  HeightRequest="150"
-                                  HorizontalOptions="Center">
-                <controls:CircleImage.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding TakePhotoCommand}" />
-                </controls:CircleImage.GestureRecognizers>
-            </controls:CircleImage>
-            <Entry Placeholder="名前"
-                   HorizontalOptions="FillAndExpand"
-                   HorizontalTextAlignment="End"
-                   Text="{Binding Name, Mode=TwoWay}" />
+        <Grid Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Frame HorizontalOptions="FillAndExpand"
+                   HasShadow="False"
+                   BackgroundColor="Transparent">
+                <controls:CircleImage Source="{Binding Image, Converter={StaticResource BinaryToImageSourceConverter}}"
+                                      Aspect="AspectFit">
+                    <controls:CircleImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding TakePhotoCommand}" />
+                    </controls:CircleImage.GestureRecognizers>
+                </controls:CircleImage>
+            </Frame>
             <StackLayout HorizontalOptions="FillAndExpand"
-                         Orientation="Horizontal">
-                <Entry Placeholder="年齢"
+                         Grid.Row="1">
+                <Entry Placeholder="名前"
                        HorizontalOptions="FillAndExpand"
-                       HorizontalTextAlignment="End"
-                       Text="{Binding Age, Mode=TwoWay}" />
-                <Label Text="才"
-                       HorizontalOptions="End"
-                       VerticalOptions="Center" />
+                       Text="{Binding Name, Mode=TwoWay}"
+                       AutomationId="EntryName" />
+                <StackLayout HorizontalOptions="FillAndExpand"
+                             Orientation="Horizontal">
+                    <Entry Placeholder="年齢"
+                           HorizontalOptions="FillAndExpand"
+                           HorizontalTextAlignment="End"
+                           Text="{Binding Age, Mode=TwoWay}"
+                           AutomationId="EntryAge" />
+                    <Label Text="才"
+                           HorizontalOptions="End"
+                           VerticalOptions="Center" />
+                </StackLayout>
+                <Button Text="登録"
+                        HorizontalOptions="FillAndExpand"
+                        Command="{Binding RegisterCommand}"
+                        AutomationId="ButtonRegister" />
             </StackLayout>
-            <Button Text="Register"
-                    HorizontalOptions="FillAndExpand"
-                    Command="{Binding RegisterCommand}" />
-        </StackLayout>
+        </Grid>
         <Frame BackgroundColor="LightGray"
                Opacity="0.3"
-               IsVisible="{Binding IsBusy}}">
+               IsVisible="{Binding IsBusy}">
             <ActivityIndicator IsRunning="{Binding IsBusy}"
                                IsVisible="{Binding IsBusy}"
                                VerticalOptions="Center" />
         </Frame>
     </Grid>
 </ContentPage>
-    
