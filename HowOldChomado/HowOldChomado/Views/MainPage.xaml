@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              x:Class="HowOldChomado.Views.MainPage"
              Title="HowOld@chomado">
     <ContentPage.ToolbarItems>
@@ -32,66 +32,47 @@
         </OnPlatform>
     </ContentPage.Padding>
     <StackLayout>
-        <Grid VerticalOptions="Start"
-              Padding="10"
-              HorizontalOptions="Center">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <controls:CircleImage Grid.Row="0"
-                                  Grid.Column="0"
-                                  Grid.RowSpan="4"
-                                  WidthRequest="100"
-                                  HeightRequest="100"
-                                  HorizontalOptions="Center"
-                                  Aspect="AspectFill" 
-                                  Source="{Binding SelectedPlayer.Picture, Converter={StaticResource BinaryToImageSourceConverter}}"/>
-            <Label Text="{Binding SelectedPlayer.DisplayName}"
-                   LineBreakMode="NoWrap"
-                   HorizontalTextAlignment="End"
-                   Grid.Row="0"
-                   Grid.Column="1"
-                   Grid.ColumnSpan="2" />
-            <Label Text="{Binding SelectedPlayer.Age, StringFormat='{0}才'}"
-                   LineBreakMode="NoWrap"
-                   HorizontalTextAlignment="End"
-                   Grid.Row="1"
-                   Grid.Column="1"
-                   Grid.ColumnSpan="2" />
-            <Image Grid.Row="2"
-                   Grid.Column="1"
-                   WidthRequest="20"
-                   HeightRequest="20">
-                <Image.Source>
-                    <OnPlatform x:TypeArguments="ImageSource">
-                        <On Platform="iOS">crown.png</On>
-                        <On Platform="Android">crown.png</On>
-                        <On Platform="Windows">Assets/crown.png</On>
-                    </OnPlatform>
-                </Image.Source>
-            </Image>
-
-            <Label Text="{Binding MaxScore.Age, StringFormat='{0}才'}"
-                   LineBreakMode="NoWrap"
-                   HorizontalTextAlignment="End"
-                   Grid.Row="2"
-                   Grid.Column="2" />
-            <Label Text="{Binding ScoreDiff, StringFormat='({0}才)'}"
-                   LineBreakMode="NoWrap"
-                   HorizontalTextAlignment="End"
-                   Grid.Row="3"
-                   Grid.Column="1"
-                   Grid.ColumnSpan="2" />
-        </Grid>
+        <StackLayout Orientation="Horizontal"
+                     Padding="25, 5">
+            <Frame x:Name="frameImageHost"
+                   HorizontalOptions="FillAndExpand">
+                <controls:CircleImage x:Name="imageTop"
+                                      Aspect="AspectFill"
+                                      Source="{Binding SelectedPlayer.Picture, Converter={StaticResource BinaryToImageSourceConverter}}" />
+            </Frame>
+            <StackLayout HorizontalOptions="End"
+                         VerticalOptions="Center"
+                         Margin="5, 50">
+                <Label Text="{Binding SelectedPlayer.DisplayName}"
+                       LineBreakMode="NoWrap"
+                       HorizontalTextAlignment="End"
+                       FontSize="Medium" />
+                <Label Text="{Binding SelectedPlayer.Age, StringFormat='{0}才'}"
+                       LineBreakMode="NoWrap"
+                       HorizontalTextAlignment="End"
+                       FontSize="Medium" />
+                <StackLayout Orientation="Horizontal">
+                    <Image WidthRequest="25"
+                           HeightRequest="25"
+                           VerticalOptions="Center">
+                        <Image.Source>
+                            <OnPlatform x:TypeArguments="ImageSource">
+                                <On Platform="Android, iOS">crown.png</On>
+                                <On Platform="Windows">Assets/crown.png</On>
+                            </OnPlatform>
+                        </Image.Source>
+                    </Image>
+                    <Label Text="{Binding MaxScore.Age, StringFormat='{0}才'}"
+                           LineBreakMode="NoWrap"
+                           HorizontalTextAlignment="End"
+                           FontSize="Medium" />
+                </StackLayout>
+                <Label Text="{Binding ScoreDiff, StringFormat='({0}才)'}"
+                       LineBreakMode="NoWrap"
+                       HorizontalTextAlignment="End"
+                       FontSize="Medium" />
+            </StackLayout>
+        </StackLayout>
 
         <ListView VerticalOptions="EndAndExpand"
                   ItemsSource="{Binding Players}"
@@ -100,19 +81,17 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
-                            <Image Source="{Binding Picture,Converter={StaticResource BinaryToImageSourceConverter}}"
-                                   HeightRequest="50"
-                                   WidthRequest="50"
-                                   Margin="5"
-                                   Aspect="AspectFill" />
+                            <controls:CircleImage Source="{Binding Picture, Converter={StaticResource BinaryToImageSourceConverter}}"
+                                                  WidthRequest="50"
+                                                  HeightRequest="50"
+                                                  Margin="5"
+                                                  Aspect="AspectFill" />
                             <Label Text="{Binding DisplayName}"
                                    VerticalOptions="Center" />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
         </ListView>
-
     </StackLayout>
 </ContentPage>

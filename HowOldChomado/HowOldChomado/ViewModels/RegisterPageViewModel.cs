@@ -10,6 +10,7 @@ using System.ComponentModel;
 using HowOldChomado.Services;
 using HowOldChomado.BusinessObjects;
 using HowOldChomado.Repositories;
+using Microsoft.ProjectOxford.Face;
 
 namespace HowOldChomado.ViewModels
 {
@@ -98,33 +99,56 @@ namespace HowOldChomado.ViewModels
             {
                 if (this.Image == null)
                 {
-                    await this.PageDialogService.DisplayAlertAsync(title: "情報", message: "写真を追加してください", cancelButton: "OK");
+                    await this.PageDialogService.DisplayAlertAsync("情報", "写真を追加してください", "OK");
                     return;
                 }
 
-                var player = await this.PlayerRepository.FindByDisplayNameAsync(displayName: this.Name);
+                var player = await this.PlayerRepository.FindByDisplayNameAsync(this.Name);
                 if (player != null)
                 {
-                    player = new Player
+                    if (!await this.PageDialogService.DisplayAlertAsync("情報",
+                        $"{this.Name}さんは既に登録されています。年齢と写真を更新しますか？",
+                        "OK",
+                        "Cancel"))
                     {
-                        Age = int.Parse(this.Age),
-                        DisplayName = this.Name,
-                        PersonId = Guid.NewGuid().ToString(),
-                        Picture = this.Image,
-                    };
-                    await this.PlayerRepository.AddAsync(player);
+                        return;
+                    }
+
+                    player.Age = int.Parse(this.Age);
+                    await this.PlayerRepository.UpdateAsync(player);
+                    try
+                    {
+                        await this.FaceService.AddFaceAsync(player.PersonId, new ImageRequest { Image = this.Image });
+                    }
+                    catch (FaceAPIException)
+                    {
+                        await this.PageDialogService.DisplayAlertAsync("情報",
+                            "登録に失敗しました。",
+                            "OK");
+                        return;
+                    }
                 }
                 else
                 {
-                    var personId = await this.FaceService.CreateFaceAsync(new ImageRequest { Image = this.Image });
-                    var newPlayer = new Player
+                    try
                     {
-                        Age = int.Parse(this.Age),
-                        DisplayName = this.Name,
-                        PersonId = personId.ToString(),
-                        Picture = this.Image,
-                    };
-                    await this.PlayerRepository.AddAsync(newPlayer);
+                        var personId = await this.FaceService.CreateFaceAsync(new ImageRequest { Image = this.Image });
+                        var newPlayer = new Player
+                        {
+                            Age = int.Parse(this.Age),
+                            DisplayName = this.Name,
+                            PersonId = personId.ToString(),
+                            Picture = this.Image,
+                        };
+                        await this.PlayerRepository.AddAsync(newPlayer);
+                    }
+                    catch (FaceAPIException)
+                    {
+                        await this.PageDialogService.DisplayAlertAsync("情報",
+                            "登録に失敗しました",
+                            "OK");
+                        return;
+                    }
                 }
 
 
@@ -132,14 +156,12 @@ namespace HowOldChomado.ViewModels
                 this.Name = "";
                 this.Age = "";
                 this.Image = null;
-                await this.FaceService.RegisterFaceAsync(player.PersonId, new ImageRequest { Image = this.Image });
             }
             finally
             {
                 this.IsBusy = false;
             }
         }
-
         private async Task TakePhotoAsync()
         {
             var result = await this.CameraService.TakePhotosAsync();

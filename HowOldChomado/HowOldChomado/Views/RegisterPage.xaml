@@ -37,7 +37,7 @@
         <Frame BackgroundColor="LightGray"
                Opacity="0.3"
                IsVisible="{Binding IsBusy}}">
-            <ActivityIndicator IsRunning="}Binding IsBusy}"
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
                                IsVisible="{Binding IsBusy}"
                                VerticalOptions="Center" />
         </Frame>
