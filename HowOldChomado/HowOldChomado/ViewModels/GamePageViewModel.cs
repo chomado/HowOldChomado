@@ -36,6 +36,15 @@ namespace HowOldChomado.ViewModels
 
         public DelegateCommand StartGameCommand { get; }
 
+        private bool isBusy;
+
+        public bool IsBusy
+        {
+            get { return this.isBusy; }
+            set { this.SetProperty(ref this.isBusy, value); }
+        }
+
+
         public GamePageViewModel(INavigationService navigationService,
             ICameraService cameraService,
             IFaceService faceService,
@@ -66,41 +75,49 @@ namespace HowOldChomado.ViewModels
 
         private async void StartGameExecute()
         {
-            var picture = await this.CameraService.TakePhotosAsync();
-            if (picture == null)
+            this.IsBusy = true;
+            try
             {
-                await this.NavigationService.GoBackAsync();
-                return;
-            }
-
-            this.Picture = picture;
-            var results = await this.FaceService.DetectFacesAsync(new ImageRequest { Image = this.Picture });
-            var l = new List<FaceDetectionResultViewModel>();
-            foreach (var r in results)
-            {
-                var vm = new FaceDetectionResultViewModel
+                var picture = await this.CameraService.TakePhotosAsync();
+                if (picture == null)
                 {
-                    FaceDetectionResult = r,
-                    Player = await this.PlayerRepository.FindByFaceIdAsync(r.FaceId),
-                };
-                l.Add(vm);
+                    await this.NavigationService.GoBackAsync();
+                    return;
+                }
 
-                if (vm.Player != null)
+                this.Picture = picture;
+                var results = await this.FaceService.DetectFacesAsync(new ImageRequest { Image = this.Picture });
+                var l = new List<FaceDetectionResultViewModel>();
+                foreach (var r in results)
                 {
-                    await this.ScoreHistoryRepository.AddAsync(new ScoreHistory
+                    var vm = new FaceDetectionResultViewModel
                     {
-                        PlayerId = vm.Player.Id,
-                        Age = vm.FaceDetectionResult.Age,
-                        Date = DateTime.Now,
-                    });
-                }
+                        FaceDetectionResult = r,
+                        Player = await this.PlayerRepository.FindByFaceIdAsync(r.FaceId),
+                    };
+                    l.Add(vm);
 
-                var winnerDiff = l.Min(x => x.Diff);
-                foreach (var player in l.Where(x => x.Diff == winnerDiff))
-                {
-                    player.IsWinner = true;
+                    if (vm.Player != null)
+                    {
+                        await this.ScoreHistoryRepository.AddAsync(new ScoreHistory
+                        {
+                            PlayerId = vm.Player.Id,
+                            Age = vm.FaceDetectionResult.Age,
+                            Date = DateTime.Now,
+                        });
+                    }
+
+                    var winnerDiff = l.Min(x => x.Diff);
+                    foreach (var player in l.Where(x => x.Diff == winnerDiff))
+                    {
+                        player.IsWinner = true;
+                    }
+                    this.FaceDetectionResults = l;
                 }
-                this.FaceDetectionResults = l;
+            }
+            finally
+            {
+                this.IsBusy = false;
             }
         }
 

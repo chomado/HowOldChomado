@@ -66,6 +66,15 @@ namespace HowOldChomado.ViewModels
             }
         }
 
+        private bool isBusy;
+
+        public bool IsBusy
+        {
+            get { return this.isBusy; }
+            set { this.SetProperty(ref this.isBusy, value); }
+        }
+
+
         public RegisterPageViewModel(
             ICameraService cameraService,
             IPlayerRepository playerRepository,
@@ -84,43 +93,51 @@ namespace HowOldChomado.ViewModels
 
         private async Task RegisterAsync()
         {
-            if (this.Image == null)
+            this.IsBusy = true;
+            try
             {
-                await this.PageDialogService.DisplayAlertAsync(title: "情報", message: "写真を追加してください", cancelButton: "OK");
-                return;
-            }
-
-            var player = await this.PlayerRepository.FindByDisplayNameAsync(displayName: this.Name);
-            if (player != null)
-            {
-                player = new Player
+                if (this.Image == null)
                 {
-                    Age = int.Parse(this.Age),
-                    DisplayName = this.Name,
-                    PersonId = Guid.NewGuid().ToString(),
-                    Picture = this.Image,
-                };
-                await this.PlayerRepository.AddAsync(player);
-            }
-            else
-            {
-                var personId = await this.FaceService.CreateFaceAsync(new ImageRequest { Image = this.Image });
-                var newPlayer = new Player
+                    await this.PageDialogService.DisplayAlertAsync(title: "情報", message: "写真を追加してください", cancelButton: "OK");
+                    return;
+                }
+
+                var player = await this.PlayerRepository.FindByDisplayNameAsync(displayName: this.Name);
+                if (player != null)
                 {
-                    Age = int.Parse(this.Age),
-                    DisplayName = this.Name,
-                    PersonId = personId.ToString(),
-                    Picture = this.Image,
-                };
-                await this.PlayerRepository.AddAsync(newPlayer);
+                    player = new Player
+                    {
+                        Age = int.Parse(this.Age),
+                        DisplayName = this.Name,
+                        PersonId = Guid.NewGuid().ToString(),
+                        Picture = this.Image,
+                    };
+                    await this.PlayerRepository.AddAsync(player);
+                }
+                else
+                {
+                    var personId = await this.FaceService.CreateFaceAsync(new ImageRequest { Image = this.Image });
+                    var newPlayer = new Player
+                    {
+                        Age = int.Parse(this.Age),
+                        DisplayName = this.Name,
+                        PersonId = personId.ToString(),
+                        Picture = this.Image,
+                    };
+                    await this.PlayerRepository.AddAsync(newPlayer);
+                }
+
+
+                await this.PageDialogService.DisplayAlertAsync("情報", $"{this.Name}さんを登録しました", "OK");
+                this.Name = "";
+                this.Age = "";
+                this.Image = null;
+                await this.FaceService.RegisterFaceAsync(player.PersonId, new ImageRequest { Image = this.Image });
             }
-
-
-            await this.PageDialogService.DisplayAlertAsync("情報", $"{this.Name}さんを登録しました", "OK");
-            this.Name = "";
-            this.Age = "";
-            this.Image = null;
-            await this.FaceService.RegisterFaceAsync(player.PersonId, new ImageRequest { Image = this.Image });
+            finally
+            {
+                this.IsBusy = false;
+            }
         }
 
         private async Task TakePhotoAsync()

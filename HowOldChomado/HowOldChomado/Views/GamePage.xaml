@@ -15,25 +15,34 @@
             </ToolbarItem.Icon>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
-    <StackLayout>
-        <Image Source="{Binding Picture, Converter={StaticResource BinaryToImageSourceConverter}}"
-               WidthRequest="250"
-               HeightRequest="250"
-               Aspect="AspectFill" />
-        <ListView VerticalOptions="FillAndExpand"
-                  ItemsSource="{Binding FaceDetectionResults}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout>
-                            <Label Text="{Binding Player.DisplayName}" />
-                            <Label Text="{Binding Player.Age, StringFormat='実年齢: {0}才'}" />
-                            <Label Text="{Binding FaceDetectionResult.Age, StringFormat='判定: {0}才'}" />
-                            <Label Text="{Binding Diff}" />
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </StackLayout>
+    <Grid>
+        <StackLayout>
+            <Image Source="{Binding Picture, Converter={StaticResource BinaryToImageSourceConverter}}"
+                   WidthRequest="250"
+                   HeightRequest="250"
+                   Aspect="AspectFill" />
+            <ListView VerticalOptions="FillAndExpand"
+                      ItemsSource="{Binding FaceDetectionResults}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding Player.DisplayName}" />
+                                <Label Text="{Binding Player.Age, StringFormat='実年齢: {0}才'}" />
+                                <Label Text="{Binding FaceDetectionResult.Age, StringFormat='判定: {0}才'}" />
+                                <Label Text="{Binding Diff}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+        <Frame BackgroundColor="LightGray"
+               Opacity="0.1"
+               IsVisible="{Binding IsBusy}">
+            <ActivityIndicator IsRunning="{Binding IsRunning}"
+                               IsVisible="{Binding IsBusy}"
+                               VerticalOptions="Center" />
+        </Frame>
+    </Grid>
 </ContentPage>
