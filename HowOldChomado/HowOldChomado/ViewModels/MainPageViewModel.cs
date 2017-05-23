@@ -96,7 +96,7 @@ namespace HowOldChomado.ViewModels
                 this.MaxScore = null;
                 return;
             }
-
+            //////
             this.MaxScore = await this.ScoreHistoryRepository.FindMaxScoreHistoryByPlayerIdAsync(this.SelectedPlayer.Id);
         }
 

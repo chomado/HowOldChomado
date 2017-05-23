@@ -25,13 +25,18 @@ namespace HowOldChomado.Services
         {
             try
             {
+                // .NET の　FaceAPI を呼ぶためのクラスを生成
                 var client = new FaceServiceClient(subscriptionKey: Secrets.CongnitiveServiceFaceApiKey, apiRoot: Consts.CognitiveServiceFaceApiEndPoint);
+
+                // DetectAsync で、画像のどこに顔があって、その顔は何歳か、という情報を取得している
                 var results = await client.DetectAsync(imageStream: new MemoryStream(request.Image), returnFaceAttributes: new[]
                 {
-                FaceAttributeType.Age,
-            });
+                    FaceAttributeType.Age,
+                });
 
                 var personListId = await this.PersonListIdRepository.GetIdAsync();
+
+                // 取得した顔が誰の顔かを認識している
                 var identifyResults = (await client.IdentifyAsync(personListId, results.Select(x => x.FaceId).ToArray()))
                     .ToDictionary(x => x.FaceId);
 
