@@ -50,5 +50,10 @@ namespace HowOldChomado.Repositories
                 .Where(x => x.PersonId == faceId)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task DeleteAsync(Player player)
+        {
+            await this.Connection.DeleteAsync(player);
+        }
     }
 }

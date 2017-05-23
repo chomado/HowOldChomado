@@ -18,6 +18,7 @@ namespace HowOldChomado.ViewModels
         private IPlayerRepository PlayerRepository { get; }
         private IScoreHistoryRepository ScoreHistoryRepository { get; }
         public DelegateCommand<string> NavigateCommand { get; }
+        public DelegateCommand DeletePlayerCommand { get; }
 
         private IEnumerable<Player> players;
 
@@ -70,6 +71,7 @@ namespace HowOldChomado.ViewModels
             this.PlayerRepository = playerRepository;
             this.ScoreHistoryRepository = scoreHistoryRepository;
             this.NavigateCommand = new DelegateCommand<string>(async x => await this.NavigationService.NavigateAsync(x));
+            this.DeletePlayerCommand = new DelegateCommand(async () => await this.DeletePlayerExecuteAsync());
         }
 
         public void OnNavigatedFrom(NavigationParameters parameters)
@@ -97,5 +99,18 @@ namespace HowOldChomado.ViewModels
 
             this.MaxScore = await this.ScoreHistoryRepository.FindMaxScoreHistoryByPlayerIdAsync(this.SelectedPlayer.Id);
         }
+
+        private async Task DeletePlayerExecuteAsync()
+        {
+            if (this.SelectedPlayer == null)
+            {
+                return;
+            }
+
+            await this.PlayerRepository.DeleteAsync(this.SelectedPlayer);
+            this.Players = await this.PlayerRepository.FindAllAsync();
+            this.SelectedPlayer = this.Players.FirstOrDefault();
+        }
+
     }
 }

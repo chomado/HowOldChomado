@@ -14,5 +14,6 @@ namespace HowOldChomado.Repositories
         Task<Player> FindByDisplayNameAsync(string displayName);
         Task<Player> FindByFaceIdAsync(string faceId); 
         Task UpdateAsync(Player player);
+        Task DeleteAsync(Player player);
     }
 }

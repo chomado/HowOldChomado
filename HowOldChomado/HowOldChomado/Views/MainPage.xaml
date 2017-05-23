@@ -35,6 +35,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
@@ -100,5 +101,9 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <Button Text="Delete"
+                Command="{Binding DeletePlayerCommand}"
+                Grid.Row="2" />
     </Grid>
 </ContentPage>
