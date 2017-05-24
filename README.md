@@ -16,8 +16,8 @@ HowOld@chomadoは Microsoft Azure の Cognitive Services の Face API を Xamarin.Fo
 - Autofac
     - DIコンテナ
 - SkiaSharp
-    - 2D描画ライブラリ
--sqlite-net-pcl
+    - 2D描画ライブラリ  
+- sqlite-net-pcl
     - SQLiteを使うためのライブラリ
 - Media Plugin for Xamarin and Windows
     - クロスプラットフォームでカメラなどを使うためのライブラリ
