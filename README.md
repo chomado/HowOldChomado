@@ -1,35 +1,34 @@
-# HowOld@chomado �ɂ���
+# HowOld@chomado について
 
-HowOld@chomado�� Microsoft Azure �� Cognitive Services �� Face API �� Xamarin.Forms ���̃A�v���P�[�V��������Ăяo�����߂̃T���v���v���O�����ł��B
+HowOld@chomadoは Microsoft Azure の Cognitive Services の Face API を Xamarin.Forms 製のアプリケーションから呼び出すためのサンプルプログラムです。
 
-## �A�v���P�[�V�����̓���
+## アプリケーションの動作
 
-�l�̊�ʐ^�Ɩ��O�ƔN���o�^���Ă������ƂŗV�Ԃ��Ƃ��ł��܂��B
-�A�v���P�[�V�����ɓo�^����Ă���l���m�Ŏʐ^���B�邱�Ƃœo�^���ꂽ�ʐ^����N���ʂ��Ă���̂��F�����āAFace API �ŔF�����ꂽ�N��Ǝ��N��̍�����ԑ傫���l�����҂Ƃ��ĉ��F����`�ƕ����ŕ\������܂��B
+人の顔写真と名前と年齢を登録しておくことで遊ぶことができます。
+アプリケーションに登録されている人同士で写真を撮ることで登録された写真から誰が写っているのか認識して、Face API で認識された年齢と実年齢の差が一番大きい人が勝者として黄色い矩形と文字で表示されます。
 
-## �g�p���Ă���e�N�m���W
+## 使用しているテクノロジ
 
-��Ɉȉ��̃��C�u�������g�p���č쐬���Ă��܂��B
+主に以下のライブラリを使用して作成しています。
 
 - Prism.Forms
-    - MVVM �����邽�߂̃��C�u����
+    - MVVM をするためのライブラリ
 - Autofac
-    - DI�R���e�i
+    - DIコンテナ
 - SkiaSharp
-    - 2D�`�惉�C�u����  
+    - 2D描画ライブラリ
 - sqlite-net-pcl
-    - SQLite���g�����߂̃��C�u����
+    - SQLiteを使うためのライブラリ
 - Media Plugin for Xamarin and Windows
-    - �N���X�v���b�g�t�H�[���ŃJ�����Ȃǂ��g�����߂̃��C�u����
+    - クロスプラットフォームでカメラなどを使うためのライブラリ
 - Xam.Plugins.Forms.ImageCircle
-    - �摜���ۂ��\�����邽�߂̃��C�u����
+    - 画像を丸く表示するためのライブラリ
 - Microsoft Cognitive Services Face API Client Library
-    - Microsoft Azure��Cognitive Services��Face API��C#����ĂԂ��߂̃��C�u����
+    - Microsoft AzureのCognitive ServicesのFace APIをC#から呼ぶためのライブラリ
 
-## �f���ł̎g�p���@
+## デモでの使用方法
 
-- �����̊��o�^������Ԃ̃A�v���P�[�V�������������Ă���
-- �f���p�ɑΐ푊��̐l�̊�ƔN��Ɩ��O��o�^����
-- ��l�ŕ��񂾎ʐ^���B�e����
-- �����N����Ⴍ���肳�ꂽ�l�����F�̋�`�ň͂܂�ĕ\�������B���̑��̐l�́A���F�̋�`�ň͂܂�ĕ\�������
-
+- 自分の顔を登録した状態のアプリケーションを準備しておく
+- デモ用に対戦相手の人の顔と年齢と名前を登録する
+- 二人で並んだ写真を撮影する
+- より実年齢より若く判定された人が黄色の矩形で囲まれて表示される。その他の人は、水色の矩形で囲まれて表示される
