@@ -1,10 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="HowOldChomado.Views.RegisterPage"
+             xmlns:i18n="clr-namespace:HowOldChomado.Views;assembly=HowOldChomado"
              Title="HowOld@chomad - Register -">
     <Grid>
         <Grid Padding="10">
@@ -24,7 +25,7 @@
             </Frame>
             <StackLayout HorizontalOptions="FillAndExpand"
                          Grid.Row="1">
-                <Entry Placeholder="名前"
+                <Entry Placeholder="{i18n:Translate label_name}"
                        HorizontalOptions="FillAndExpand"
                        Text="{Binding Name, Mode=TwoWay}"
                        AutomationId="EntryName" />
