@@ -100,6 +100,7 @@
     <ITunesArtwork Include="iTunesArtwork" />
     <ITunesArtwork Include="iTunesArtwork@2x" />
     <None Include="packages.config" />
+    <Compile Include="Localize.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HowOldChomado\HowOldChomado.csproj">

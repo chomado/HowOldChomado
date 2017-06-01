@@ -74,6 +74,8 @@
     <Compile Include="Resx\AppResources.Designer.cs">
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ILocalize.cs" />
+    <Compile Include="Views\TranslateExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App.xaml">
