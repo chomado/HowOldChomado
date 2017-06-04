@@ -16,7 +16,15 @@ namespace HowOldChomado
 {
     public partial class App : PrismApplication
     {
-        public App(IPlatformInitializer initializer = null) : base(initializer) { }
+        public App(IPlatformInitializer initializer = null) : base(initializer) 
+        {
+            if (Device.OS == TargetPlatform.iOS || Device.OS == TargetPlatform.Android)
+			{
+				var ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
+				Resx.AppResources.Culture = ci; // set the RESX for resource localization
+				DependencyService.Get<ILocalize>().SetLocale(ci); // set the Thread for locale-aware methods
+			}
+        }
 
         protected override async void OnInitialized()
         {
